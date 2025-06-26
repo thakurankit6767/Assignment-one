@@ -1,4 +1,4 @@
-import React from 'react';
+import { AuthProvider } from './context/authContext';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Layout/Navbar';
 import Footer from './components/Layout/Footer';
@@ -14,22 +14,23 @@ import PrivateRoute from './components/Common/PrivateRoute';
 function App() {
   return (
     <Router>
-      <Navbar />
-     
-      <div className="main-content" style={{ minHeight: 'calc(100vh - 120px)' }}>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route element={<PrivateRoute />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/policies" element={<PolicyList />} />
-            <Route path="/policies/:id" element={<PolicyDetails />} />
-            <Route path="/policies/:id/illustration" element={<IllustrationForm />} />
-            <Route path="/illustrations/:id/result" element={<IllustrationResult />} />
-          </Route>
-        </Routes>
-      </div>
-      <Footer />
+      <AuthProvider>
+        <Navbar />
+        <div className="main-content" style={{ minHeight: 'calc(100vh - 120px)' }}>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route element={<PrivateRoute />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/policies" element={<PolicyList />} />
+              <Route path="/policies/:id" element={<PolicyDetails />} />
+              <Route path="/policies/:id/illustration" element={<IllustrationForm />} />
+              <Route path="/illustrations/:id/result" element={<IllustrationResult />} />
+            </Route>
+          </Routes>
+        </div>
+        <Footer />
+      </AuthProvider>
     </Router>
   );
 }
